@@ -1,13 +1,31 @@
-name: Use Shared Workflow
-'on':
+name: rani-ukamble-group/reusable_files_application
+on:
+  push:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: Environment to deploy to
-        required: true
-        default: production
+concurrency:
+  group: "${{ github.ref }}"
+  cancel-in-progress: true
 jobs:
-  call-shared:
-    uses: Target-orgn/target-simple-reusable1/.github/workflows/build.yml@demo1
-    with:
-      environment: ${{ inputs.environment }}
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "Building the application..."
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "Running tests..running"
