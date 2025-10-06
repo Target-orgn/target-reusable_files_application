@@ -7,7 +7,7 @@ name: Use Shared Workflow
         required: true
         default: production
 jobs:
-  build:
+  call-shared:
     uses: Target-orgn/target-simple-reusable1/.github/workflows/build.yml@demo1
     with:
       environment: ${{ inputs.environment }}
