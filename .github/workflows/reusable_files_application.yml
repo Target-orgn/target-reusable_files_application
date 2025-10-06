@@ -1,12 +1,13 @@
-name: rani-ukamble-group/reusable_files_application
-true:
-  push: null
-  workflow_dispatch: null
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+name: Use Shared Workflow
+'on':
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        required: true
+        default: production
 jobs:
   build:
     uses: Target-orgn/target-simple-reusable1/.github/workflows/build.yml@demo1
-  test:
-    uses: Target-orgn/target-simple-reusable1/.github/workflows/test_file.yml@demo1
+    with:
+      environment: ${{ inputs.environment }}
