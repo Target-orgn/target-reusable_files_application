@@ -6,6 +6,9 @@ name: Use Multiple Shared Workflows
         description: Environment to deploy to
         required: true
         default: production
+concurrency:
+    group: "${{ github.ref }}"
+    cancel-in-progress: true
 
 jobs:
   call-build:
