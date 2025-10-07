@@ -6,8 +6,9 @@ name: Use Multiple Shared Workflows
         description: Environment to deploy to
         required: true
         default: production
-
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
 jobs:
   call-build:
     uses: Target-orgn/target-simple-reusable1/.github/workflows/build.yml@demo1
