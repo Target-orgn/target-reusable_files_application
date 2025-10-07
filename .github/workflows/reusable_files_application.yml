@@ -1,13 +1,25 @@
 name: Use Shared Workflow
-'on':
+
+on:
   workflow_dispatch:
     inputs:
       environment:
         description: Environment to deploy to
         required: true
         default: production
+
 jobs:
-  call-shared:
+  build-job:
     uses: Target-orgn/reusable_files-post/.github/workflows/build_file.yml@b1
+    with:
+      environment: ${{ inputs.environment }}
+
+  test-job:
+    uses: Target-orgn/reusable_files-post/.github/workflows/test_file.yml@b1
+    with:
+      environment: ${{ inputs.environment }}
+
+  deploy-job:
+    uses: Target-orgn/reusable_files-post/.github/workflows/deploy_file.yml@b1
     with:
       environment: ${{ inputs.environment }}
