@@ -8,6 +8,6 @@ name: Use Shared Workflow
         default: production
 jobs:
   call-shared:
-    uses: Target-orgn/target-simple-reusable1/.github/workflows/build.yml@demo1
+    uses: Target-orgn/reusable_files-post/.github/workflows/build_file.yml@demo1
     with:
       environment: ${{ inputs.environment }}
